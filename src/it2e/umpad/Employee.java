@@ -108,7 +108,7 @@ public class Employee {
         Scanner sc = new Scanner(System.in);
         config conf = new config();
 
-        System.out.print("Enter User ID: ");
+        System.out.print("Enter Employee ID: ");
         int id = sc.nextInt();
 
         while (conf.getSingleValue("SELECT e_id FROM Employee WHERE e_id=?", id) == 0) {
@@ -131,7 +131,7 @@ public class Employee {
         System.out.print("Enter new Phone Number: ");
         String econtact = sc.nextLine();
 
-        String qry = "UPDATE User SET u_fname = ?, e_lname = ?, e_email = ?, e_contact = ? WHERE e_id = ?";
+        String qry = "UPDATE Employee SET e_fname = ?, e_lname = ?, e_email = ?, e_contact = ? WHERE e_id = ?";
         conf.updateRecord(qry, efname, elname, eemail, econtact, id);
     }
 
