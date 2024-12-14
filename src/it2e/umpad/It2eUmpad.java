@@ -65,8 +65,9 @@ public class It2eUmpad {
                 as.assignTask();
                 break;
             case 4:
-//                sr.showReports(); 
-                break;
+                Reportss rs = new Reportss();
+                rs.reportMenu();
+                 break;
             default:
                 System.out.println("Invalid action. Please try again.");
         }

@@ -1,7 +1,8 @@
 package it2e.umpad;
 
 import java.util.Scanner;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 public class Employee {
 
     public void nameEmployee() {
@@ -77,23 +78,60 @@ public class Employee {
         Scanner sc = new Scanner(System.in);
         config conf = new config();
 
-        sc.nextLine();  
+        sc.nextLine(); 
 
-        System.out.print("First Name: ");
-        String efname = sc.nextLine();
+        String efname, elname, eemail, econtact;
 
-        System.out.print("Last Name: ");
-        String elname = sc.nextLine();
+        do{
+            System.out.print("First Name: ");
+            efname = sc.nextLine();
+            if(efname.isEmpty()){
+                System.out.println("First Name cannot be empty");
+            }
+        }while(efname.isEmpty());
 
-        System.out.print("Email: ");
-        String eemail = sc.nextLine();
+        do{
+            System.out.print("Last Name: ");
+            elname = sc.nextLine();
+            if(elname.isEmpty()){
+                System.out.println("Last Name cannot be empty");
+            }
+        }while(elname.isEmpty());
 
-        System.out.print("Phone Number: ");
-        String econtact = sc.nextLine();
+        do {
+            System.out.print("Email: ");
+            eemail = sc.nextLine();
+            if (!isValidEmail(eemail)) {
+                System.out.println("Invalid email format. Please use a valid email address.");
+            }
+        } while (!isValidEmail(eemail));
+
+        do {
+            System.out.print("Phone Number: ");
+            econtact = sc.nextLine();
+            if (!isValidPhoneNumber(econtact)) {
+                System.out.println("Invalid phone number format. Please use a valid phone number.");
+            }
+        } while (!isValidPhoneNumber(econtact));
 
         String sql = "INSERT INTO Employee (e_fname, e_lname, e_email, e_contact) VALUES (?, ?, ?, ?)";
         conf.addRecord(sql, efname, elname, eemail, econtact);
     }
+
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    private boolean isValidPhoneNumber(String phoneNumber) {
+        String phoneRegex = "^\\+?[1-9]\\d{1,14}$"; 
+        Pattern pattern = Pattern.compile(phoneRegex);
+        Matcher matcher = pattern.matcher(phoneNumber);
+        return matcher.matches();
+    }
+
 
     public void viewEmployee() {
         String qry = "SELECT * FROM Employee";
@@ -148,7 +186,7 @@ public class Employee {
             id = sc.nextInt();
         }
 
-        String sqlDelete = "DELETE FROM Employee WHERE un_id = ?";
+        String sqlDelete = "DELETE FROM Employee WHERE e_id = ?";
         conf.deleteRecord(sqlDelete, id);
     }
 }

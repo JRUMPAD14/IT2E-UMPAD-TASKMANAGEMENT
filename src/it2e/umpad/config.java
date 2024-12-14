@@ -73,11 +73,11 @@ public class config {
              ResultSet rs = pstmt.executeQuery()) {
 
             StringBuilder headerLine = new StringBuilder();
-            headerLine.append("--------------------------------------------------------------------------------\n| ");
+            headerLine.append("-----------------------------------------------------------------------------------------------------------------------------------------------------\n| ");
             for (String header : columnHeaders) {
-                headerLine.append(String.format("%-20s | ", header));
+                headerLine.append(String.format("%-25s | ", header));
             }
-            headerLine.append("\n--------------------------------------------------------------------------------");
+            headerLine.append("\n-------------------------------------------------------------------------------------------------------------------------------------------------------");
 
             System.out.println(headerLine.toString());
 
@@ -85,11 +85,11 @@ public class config {
                 StringBuilder row = new StringBuilder("| ");
                 for (String colName : columnNames) {
                     String value = rs.getString(colName);
-                    row.append(String.format("%-20s | ", value != null ? value : ""));
+                    row.append(String.format("%-25s | ", value != null ? value : ""));
                 }
                 System.out.println(row.toString());
             }
-            System.out.println("--------------------------------------------------------------------------------");
+            System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------");
 
         } catch (SQLException e) {
             System.out.println("Error retrieving records: " + e.getMessage());
